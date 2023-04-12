@@ -1,11 +1,48 @@
 import { useForm } from "react-hook-form";
 import { ITodos, categories, todoState } from "../atom";
 import { useSetRecoilState } from "recoil";
+import styled from "styled-components";
 
 interface Iform {
   todo: string;
 }
 //interface를 사용해서 IForm의 각 변수들의 type을 typescript에게 알려준다
+
+const CreateBox = styled.form`
+  margin: 20px;
+`;
+
+const CreateInput = styled.input`
+  text-align: center;
+  border: none;
+  border-bottom: solid #aaaaaa 1px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  position: relative;
+  background-color: #aaaaaa5a;
+  color: ${(props) => props.theme.subBgColor};
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: ${(props) => props.theme.subBgColor};
+  }
+`;
+
+const Btn = styled.button`
+  border: none;
+  background-color: ${(props) => props.theme.accentColor};
+  font-weight: 600;
+  border-radius: 5px;
+  margin-left: 5px;
+  padding: 3px 5px;
+
+  &:hover {
+    background-color: ${(props) => props.theme.subBgColor};
+    color: whitesmoke;
+  }
+`;
 
 function CreateTodos() {
   const setTodos = useSetRecoilState(todoState);
@@ -26,10 +63,10 @@ function CreateTodos() {
     // todo input박스를 빈값으로 돌려놓는다
   };
   return (
-    <form onSubmit={handleSubmit(handleValid)}>
-      <input {...register("todo")} />
-      <button>ADD</button>
-    </form>
+    <CreateBox onSubmit={handleSubmit(handleValid)}>
+      <CreateInput {...register("todo")} placeholder="Write here" />
+      <Btn>ADD</Btn>
+    </CreateBox>
   );
 }
 

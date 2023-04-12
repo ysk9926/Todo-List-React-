@@ -15,10 +15,20 @@ export interface ITodos {
   category: categories;
 }
 
+export interface ICusCat {
+  category: string;
+  id: number;
+}
+
 export const categoryState = atom<categories>({
   key: "category",
   default: categories.TO_DO,
   effects_UNSTABLE: [persistAtom],
+});
+
+export const customCategoryState = atom<ICusCat[]>({
+  key: "customCat",
+  default: [],
 });
 
 export const todoState = atom<ITodos[]>({
@@ -34,4 +44,9 @@ export const todoSelector = selector({
     const category = get(categoryState);
     return todos.filter((todo) => todo.category === category);
   },
+});
+
+export const isDarkAtom = atom({
+  key: "isDark",
+  default: false,
 });

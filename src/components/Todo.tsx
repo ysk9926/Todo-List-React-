@@ -1,5 +1,42 @@
 import { useSetRecoilState } from "recoil";
 import { ITodos, categories, todoState } from "../atom";
+import styled from "styled-components";
+
+const List = styled.li`
+  padding-bottom: 10px;
+  display: flex;
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 200px;
+    width: 100px;
+    height: 30px;
+    overflow-x: hidden;
+    background-color: white;
+    margin-right: 20px;
+    color: ${(props) => props.theme.titleClolr};
+    font-weight: 600;
+  }
+`;
+
+const Btn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 20px;
+  margin-right: 10px;
+  color: white;
+  padding: 3px 10px;
+  color: ${(props) => props.theme.titleClolr};
+  background-color: ${(props) => props.theme.textColor};
+
+  &:hover {
+    color: whitesmoke;
+    background-color: ${(props) => props.theme.subBgColor};
+  }
+`;
 
 function Todo({ text, category, id }: ITodos) {
   const setTodos = useSetRecoilState(todoState);
@@ -33,26 +70,26 @@ function Todo({ text, category, id }: ITodos) {
   };
 
   return (
-    <li>
-      <div>{text}</div>
+    <List>
       {category !== categories.DOING && (
-        <button name={categories.DOING} onClick={onClick}>
+        <Btn name={categories.DOING} onClick={onClick}>
           {/* category의 속성 값이 다를떄 보여준다  */}
           Doing
-        </button>
+        </Btn>
       )}
       {category !== categories.TO_DO && (
-        <button name={categories.TO_DO} onClick={onClick}>
+        <Btn name={categories.TO_DO} onClick={onClick}>
           To Do
-        </button>
+        </Btn>
       )}
       {category !== categories.DONE && (
-        <button name={categories.DONE} onClick={onClick}>
+        <Btn name={categories.DONE} onClick={onClick}>
           Done
-        </button>
+        </Btn>
       )}
-      <button onClick={onDelete}>DELETE</button>
-    </li>
+      <span>{text}</span>
+      <Btn onClick={onDelete}>X</Btn>
+    </List>
   );
 }
 
