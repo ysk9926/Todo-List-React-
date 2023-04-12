@@ -21,12 +21,14 @@ a{
 }
 
 `;
+// GlobalStyle을 사용해서 App안에있는 모든 컴포넌트에 요소들에게 일괄 적용
 
 function App() {
   return (
     <>
       <GlobalStyle />
       <Reset />
+      {/* Reset은 reactReset npm을 사용해서 기본적인 css를 초기화시켜준다 */}
       <TodoList />
     </>
   );
