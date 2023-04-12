@@ -1,15 +1,16 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { todoState } from "../atom";
+import { todoSelector, todoState } from "../atom";
 import CreateTodos from "./CreateTodos";
 import Todo from "./Todo";
+import Category from "./Category";
 
 function TodoList() {
-  const todos = useRecoilValue(todoState);
+  const todos = useRecoilValue(todoSelector);
   // 현재 컴포넌트에서는 todos의 state값을 수정할 필요없이 가져오기만 하기위해 useRecoilValue을 사용한다
-
   return (
     <>
+      <Category />
       <CreateTodos />
       <ul>
         {todos.map((todo) => (

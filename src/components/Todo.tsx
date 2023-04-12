@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import { ITodos, todoState } from "../atom";
+import { ITodos, categories, todoState } from "../atom";
 
 function Todo({ text, category, id }: ITodos) {
   const setTodos = useSetRecoilState(todoState);
@@ -25,26 +25,33 @@ function Todo({ text, category, id }: ITodos) {
       // slice를 사용해서 targetIndex 전 배열 + 새로운 todo + targetIndex 후 배열로 조합해 새로운 todos를 만든다
     });
   };
+  const onDelete = () => {
+    setTodos((pre) => {
+      const targetIndex = pre.findIndex((todo) => todo.id === id);
+      return [...pre.slice(0, targetIndex), ...pre.slice(targetIndex + 1)];
+    });
+  };
 
   return (
     <li>
       <div>{text}</div>
-      {category !== "DOING" && (
-        <button name="DOING" onClick={onClick}>
+      {category !== categories.DOING && (
+        <button name={categories.DOING} onClick={onClick}>
           {/* category의 속성 값이 다를떄 보여준다  */}
           Doing
         </button>
       )}
-      {category !== "TO_DO" && (
-        <button name="TO_DO" onClick={onClick}>
+      {category !== categories.TO_DO && (
+        <button name={categories.TO_DO} onClick={onClick}>
           To Do
         </button>
       )}
-      {category !== "DONE" && (
-        <button name="DONE" onClick={onClick}>
+      {category !== categories.DONE && (
+        <button name={categories.DONE} onClick={onClick}>
           Done
         </button>
       )}
+      <button onClick={onDelete}>DELETE</button>
     </li>
   );
 }

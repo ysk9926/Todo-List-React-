@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { ITodos, todoState } from "../atom";
+import { ITodos, categories, todoState } from "../atom";
 import { useSetRecoilState } from "recoil";
 
 interface Iform {
@@ -18,7 +18,7 @@ function CreateTodos() {
   const handleValid = ({ todo }: Iform) => {
     // handleSubmit에 들어갈 함수를 선언한다
     setTodos((pre) => [
-      { text: todo, id: Date.now(), category: "TO_DO" },
+      { text: todo, id: Date.now(), category: categories.TO_DO },
       ...pre,
     ]);
     // setTodos에 원래 있던 배열에 현재 작성한 변수를 추가한다
